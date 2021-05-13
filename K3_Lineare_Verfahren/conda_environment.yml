@@ -1,0 +1,6 @@
+name: manfred_linear_regression
+dependencies:
+  - python=3.8
+  - numpy
+  - pandas
+  - matplotlib

@@ -1,0 +1,4 @@
+name: manfred_python_intro
+dependencies:
+  - python=3.8
+  - numpy
