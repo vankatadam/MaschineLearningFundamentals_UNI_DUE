@@ -28,6 +28,7 @@ def mse(y_prediction: np.ndarray, y: np.ndarray):
     print("yoooo type", type(sum))
     # checken, ob sum nicht array ist, da man float erwartet: float64 after /len and int32.numpy bevore
     return sum
+    # return np.square(np.substract(y, y_prediction)).mean()
 
 
 def question_1():
