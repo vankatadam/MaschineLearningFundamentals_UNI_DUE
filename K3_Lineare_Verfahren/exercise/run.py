@@ -4,16 +4,30 @@ import matplotlib.pyplot as plt
 
 
 def closed_form_solution(X: np.ndarray, y: np.ndarray):
-    """Returns the optimal model parameters theta for the feature matrix X and the real values y.
+    """Returns the optimal model parameters THETA for the feature matrix X and the real values y.
     X is of shape (N, M) where N denotes the number of data points and M the number of features (+1 for bias).
     y is of shape (N, 1)."""
+
+    "print X: [1.         0.24230205] ... die 1 ist nur ein DUmmy Feature, damit wir weiter mit BIas Term auch rechnen können"
+    "[1.         0.24230205] .. Zeile ist eine Zeile wie in Matrix und Spalte ist jeweils ein Feature (0.24230205 ein Messwert vom zweiten Feature)"
     return np.zeros((X.shape[1], 1))
 
 
 def mse(y_prediction: np.ndarray, y: np.ndarray):
     """Returns the mean squared error for the predictions y_prediction and the real values y.
     y_prediction and y is of shape (N, 1)."""
-    return 0
+    "Both are the same length"
+    # print("MSE AUFGABE Predictions: ", len(
+    #     y_prediction), "MSE AUFGABE real value", len(y))
+
+    sum = 0
+    for i in range(len(y_prediction)):
+        sum += (y[i] - y_prediction[i])**2
+
+    sum = sum / len(y_prediction)
+    print("yoooo type", type(sum))
+    # checken, ob sum nicht array ist, da man float erwartet: float64 after /len and int32.numpy bevore
+    return sum
 
 
 def question_1():
@@ -21,14 +35,14 @@ def question_1():
     # Gucken Sie sich die Scatter-Plots der features [2, 3, 4, 5, 9] an
     # Welches Feature lässt sich am besten mit einem linearen Modell darstellen
     # Antwort aus INDUS CHAS NOX RM TAX
-    return ""
+    return "RM"
 
 
 def question_2():
     """Returns the correct answer to question 2."""
     # Welches Feature lässt sich am schlechtesten mit einem linearen Modell darstellen
     # Antwort aus INDUS CHAS NOX RM TAX
-    return ""
+    return "CHAS"
 
 
 def question_3():
@@ -80,7 +94,8 @@ def plot_features_from_df(df: pd.DataFrame, columns: list, n_plot_columns: int =
     n_ax_columns = n_plot_columns
     n_ax_rows = int(len(columns) / n_ax_columns)
     n_ax_rows += 1 if len(columns) % n_ax_columns > 0 else 0
-    fig, ax = plt.subplots(n_ax_rows, n_ax_columns, figsize=(3 * n_ax_columns, 3 * n_ax_rows), sharey=True)
+    fig, ax = plt.subplots(n_ax_rows, n_ax_columns, figsize=(
+        3 * n_ax_columns, 3 * n_ax_rows), sharey=True)
     for column, ax_ in zip(columns, ax.flat):
         ax_.scatter(df.iloc[:, column], df.iloc[:, -1])
         ax_.set_title(f"{df.columns[column]} ({column})")
@@ -103,10 +118,10 @@ if __name__ == "__main__":
     # import data set
     df = pd.read_csv("../data/boston_house_prices.csv")
     features = [2, 3, 4, 5, 9]
-    
+
     # plot features
     plot_features_from_df(df, features, 2)
-    
+
     # MSE of single features
     print("MSE single features:")
     for i in features:

@@ -162,7 +162,7 @@ def np_matrix_product(a: np.ndarray, b: np.ndarray):
     """Returns the matrix product of matrices a and b.
     a is a numpy array of shape (N, M).
     b is a numpy array of shape (M, N)."""
-    return np.matmul(a,b)
+    return np.matmul(a, b)
 
 
 if __name__ == "__main__":
