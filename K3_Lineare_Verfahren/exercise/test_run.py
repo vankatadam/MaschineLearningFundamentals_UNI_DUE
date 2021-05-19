@@ -17,7 +17,7 @@ class MyTest(unittest.TestCase):
         self.b = np.array([2, 3, 4])
 
         self.X = np.array([[1, 1], [1, 2], [1, 3]])
-        self.y = np.array([[1, 2, 3]])
+        self.y = np.array([1, 2, 3])
 
     def test_mse(self):
         self.assertEqual(mse(self.a, self.b), 1)

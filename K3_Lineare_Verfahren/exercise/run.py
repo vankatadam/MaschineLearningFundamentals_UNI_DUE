@@ -10,7 +10,10 @@ def closed_form_solution(X: np.ndarray, y: np.ndarray):
 
     "print X: [1.         0.24230205] ... die 1 ist nur ein DUmmy Feature, damit wir weiter mit BIas Term auch rechnen können"
     "[1.         0.24230205] .. Zeile ist eine Zeile wie in Matrix und Spalte ist jeweils ein Feature (0.24230205 ein Messwert vom zweiten Feature)"
-    return np.zeros((X.shape[1], 1))
+    # return np.zeros((X.shape[1], 1))
+
+    # solution aus der Übung von jemanded
+    return np.dot(np.dot(np.linalg.inv(np.dot(X.T, X)), X.T), y)
 
 
 def mse(y_prediction: np.ndarray, y: np.ndarray):
@@ -22,13 +25,13 @@ def mse(y_prediction: np.ndarray, y: np.ndarray):
 
     sum = 0
     for i in range(len(y_prediction)):
-        sum += (y[i] - y_prediction[i])**2
+        sum += (y_prediction[i] - y[i])**2
 
     sum = sum / len(y_prediction)
-    print("yoooo type", type(sum))
     # checken, ob sum nicht array ist, da man float erwartet: float64 after /len and int32.numpy bevore
     return sum
     # return np.square(np.substract(y, y_prediction)).mean()
+    # return mean((y - y_prediction)**2)
 
 
 def question_1():
@@ -51,14 +54,14 @@ def question_3():
     # Gucken sie sich das Modell für alle Features an
     # Welches Feature hat den größten Einfluss
     # Antwort aus INDUS CHAS NOX RM TAX
-    return ""
+    return "RM"
 
 
 def question_4():
     """Returns the correct answer to question 4."""
     # Welches Feature hat den geringsten Einfluss
     # Antwort aus INDUS CHAS NOX RM TAX
-    return ""
+    return "INDUS"
 
 
 def min_max_scaling(X):
@@ -128,7 +131,7 @@ if __name__ == "__main__":
     for i in features:
         X, y = get_linear_regression_training_set_from_df(df, [i])
         theta = closed_form_solution(X, y)
-        print(f"{df.columns[i]}: {mse(get_predictions(theta, X), y): 0.2f}")
+        print(f"{df.columns[i]}: {mse(get_predictions(theta, X), y)}")
     print("\n")
     X, y = get_linear_regression_training_set_from_df(df, features)
     theta = closed_form_solution(X, y)
@@ -137,4 +140,4 @@ if __name__ == "__main__":
         [f"{np.round(coef, 2)} * ({feature_name})"
          for feature_name, coef in zip(["Bias"] + list(df.columns[features]), theta.flatten())]
     ))
-    print(f"MSE Model: {mse(get_predictions(theta, X), y): 0.2f}")
+    print(f"MSE Model: {mse(get_predictions(theta, X), y)}")
